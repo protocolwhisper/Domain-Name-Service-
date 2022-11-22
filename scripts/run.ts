@@ -11,8 +11,16 @@ const main = async () => {
     console.log(`The contract was deployed by ${owner.address}`)
 
     // Let's register some domains
-    const registerdomain = await domainContract.register("hashbulla" , {value: hre.ethers.utils.parseEther("0.5")})
+    const registerdomain = await domainContract.register("hashbulla" , {value: hre.ethers.utils.parseEther("0.1")})
     await registerdomain.wait()
+    //Let's do another transact
+    const registerdomaintwo = await domainContract.register("vitalik" , {value: hre.ethers.utils.parseEther("0.1")})
+    await registerdomaintwo.wait()
+    //Let's set a record 
+    const recordone = await domainContract.setRecord("hashbulla" , "I'm Fucking HASHBU")
+    await recordone.wait()
+    const recordtwo =await domainContract.setRecord("vitalik" , "I created this ens")
+    await recordtwo.wait()
     //Let's query the domains
     const query = await domainContract.getAddress("hashbulla")
     console.log(`Owner of the domain rugged is: ${query}`)
